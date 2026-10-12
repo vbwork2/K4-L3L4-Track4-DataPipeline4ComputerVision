@@ -1,0 +1,307 @@
+{
+  "student_id": "2A202603012",
+  "run_id": "checkpoint5-recovery",
+  "dag_state": "failed",
+  "counts": {
+    "success": 30,
+    "upstream_failed": 7
+  },
+  "tasks": [
+    {
+      "task_id": "bronze_drive_b",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:43.335458+00:00",
+      "end_date": "2026-10-12 16:59:45.489749+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 3,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:00.427165+00:00",
+      "end_date": "2026-10-12 17:00:02.459729+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 4,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:03.643830+00:00",
+      "end_date": "2026-10-12 17:00:05.281238+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 5,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:06.571486+00:00",
+      "end_date": "2026-10-12 17:00:08.794644+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 6,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:09.503295+00:00",
+      "end_date": "2026-10-12 17:00:11.043194+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 7,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:11.648014+00:00",
+      "end_date": "2026-10-12 17:00:13.667907+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 8,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:13.991996+00:00",
+      "end_date": "2026-10-12 17:00:15.940654+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 9,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:16.681335+00:00",
+      "end_date": "2026-10-12 17:00:18.075778+00:00"
+    },
+    {
+      "task_id": "bronze_drive_a",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:43.324771+00:00",
+      "end_date": "2026-10-12 16:59:45.437741+00:00"
+    },
+    {
+      "task_id": "bronze_trips",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:47.374907+00:00",
+      "end_date": "2026-10-12 16:59:48.447746+00:00"
+    },
+    {
+      "task_id": "trip_commands",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:49.276948+00:00",
+      "end_date": "2026-10-12 16:59:50.236765+00:00"
+    },
+    {
+      "task_id": "dbt_run_silver",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:30.195801+00:00",
+      "end_date": "2026-10-12 17:00:30.195801+00:00"
+    },
+    {
+      "task_id": "dbt_test_silver",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:30.603347+00:00",
+      "end_date": "2026-10-12 17:00:30.603347+00:00"
+    },
+    {
+      "task_id": "dbt_run_gold",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:30.668171+00:00",
+      "end_date": "2026-10-12 17:00:30.668171+00:00"
+    },
+    {
+      "task_id": "dbt_test_gold",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:31.720573+00:00",
+      "end_date": "2026-10-12 17:00:31.720573+00:00"
+    },
+    {
+      "task_id": "publish_lake",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:32.548222+00:00",
+      "end_date": "2026-10-12 17:00:32.548222+00:00"
+    },
+    {
+      "task_id": "export_dataset",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:32.772290+00:00",
+      "end_date": "2026-10-12 17:00:32.772290+00:00"
+    },
+    {
+      "task_id": "publish_warehouse",
+      "map_index": -1,
+      "state": "upstream_failed",
+      "try_number": 0,
+      "start_date": "2026-10-12 17:00:32.823717+00:00",
+      "end_date": "2026-10-12 17:00:32.823717+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 16,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:32.987227+00:00",
+      "end_date": "2026-10-12 17:00:35.071415+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 17,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:35.870083+00:00",
+      "end_date": "2026-10-12 17:00:37.703158+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 18,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:37.971157+00:00",
+      "end_date": "2026-10-12 17:00:39.492999+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 19,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:39.833437+00:00",
+      "end_date": "2026-10-12 17:00:41.509204+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 20,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:41.968179+00:00",
+      "end_date": "2026-10-12 17:00:43.515413+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 21,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:44.106591+00:00",
+      "end_date": "2026-10-12 17:00:45.642488+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 23,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:48.073930+00:00",
+      "end_date": "2026-10-12 17:00:49.996290+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 22,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:45.936724+00:00",
+      "end_date": "2026-10-12 17:00:47.846340+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 24,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:50.985767+00:00",
+      "end_date": "2026-10-12 17:00:52.781887+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 0,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:51.400252+00:00",
+      "end_date": "2026-10-12 16:59:53.384395+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 25,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:53.144472+00:00",
+      "end_date": "2026-10-12 17:00:55.031943+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:54.112215+00:00",
+      "end_date": "2026-10-12 16:59:56.442394+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 2,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 16:59:57.507761+00:00",
+      "end_date": "2026-10-12 16:59:59.307065+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 14,
+      "state": "success",
+      "try_number": 2,
+      "start_date": "2026-10-12 17:04:46.325811+00:00",
+      "end_date": "2026-10-12 17:04:48.421611+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 12,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:24.301990+00:00",
+      "end_date": "2026-10-12 17:00:26.213265+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 10,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:18.810939+00:00",
+      "end_date": "2026-10-12 17:00:20.765614+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 11,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:21.717243+00:00",
+      "end_date": "2026-10-12 17:00:23.701678+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 13,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:26.775028+00:00",
+      "end_date": "2026-10-12 17:00:28.735658+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 15,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:00:30.837422+00:00",
+      "end_date": "2026-10-12 17:00:32.478082+00:00"
+    }
+  ]
+}

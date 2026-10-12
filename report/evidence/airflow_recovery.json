@@ -1,0 +1,88 @@
+{
+  "student_id": "2A202603012",
+  "trip": "trip-04871",
+  "selection_numeric_part": 202603012,
+  "map_index": 14,
+  "failed_counts": {
+    "success": 29,
+    "upstream_failed": 7,
+    "failed": 1
+  },
+  "recovered_counts": {
+    "success": 37
+  },
+  "changed_start_tasks": [
+    {
+      "task_id": "publish_lake",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:06:05.440218+00:00",
+      "end_date": "2026-10-12 17:06:06.751365+00:00"
+    },
+    {
+      "task_id": "export_dataset",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:06:07.358814+00:00",
+      "end_date": "2026-10-12 17:06:18.850645+00:00"
+    },
+    {
+      "task_id": "dbt_run_silver",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:05:42.118800+00:00",
+      "end_date": "2026-10-12 17:05:48.618366+00:00"
+    },
+    {
+      "task_id": "dbt_run_gold",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:05:55.347913+00:00",
+      "end_date": "2026-10-12 17:06:00.207861+00:00"
+    },
+    {
+      "task_id": "silver_frames",
+      "map_index": 14,
+      "state": "success",
+      "try_number": 2,
+      "start_date": "2026-10-12 17:04:46.325811+00:00",
+      "end_date": "2026-10-12 17:04:48.421611+00:00"
+    },
+    {
+      "task_id": "dbt_test_silver",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:05:49.241698+00:00",
+      "end_date": "2026-10-12 17:05:54.247624+00:00"
+    },
+    {
+      "task_id": "dbt_test_gold",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:06:00.815681+00:00",
+      "end_date": "2026-10-12 17:06:05.193364+00:00"
+    },
+    {
+      "task_id": "publish_warehouse",
+      "map_index": -1,
+      "state": "success",
+      "try_number": 1,
+      "start_date": "2026-10-12 17:06:19.570147+00:00",
+      "end_date": "2026-10-12 17:06:20.681138+00:00"
+    }
+  ],
+  "successful_tasks_rerun": 0,
+  "dataset_version_before": "cc467d409753",
+  "dataset_version_after": "cc467d409753",
+  "silver_rows_before": 1246,
+  "silver_rows_after": 1246,
+  "unique_frame_ids_after": 1246,
+  "frame_ids_hash_unchanged": true,
+  "clear_method": "Airflow CLI: first failed silver_frames only; then only-failed downstream because upstream_failed remained terminal"
+}

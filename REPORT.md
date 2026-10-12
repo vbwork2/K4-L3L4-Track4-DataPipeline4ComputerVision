@@ -82,21 +82,38 @@ Manifest `cc467d409753` ghi 1.019 frame (A: 436, B: 583), chia 684/177/158 trên
 ### Câu 9
 Mô tả chính xác điều xảy ra khi trip của bạn sập rồi chạy lại: bao nhiêu task chuyển đỏ, bao nhiêu task `upstream_failed`, bạn clear gì, dữ liệu có nhân đôi không, `dataset_version` có đổi không? Bằng chứng (ảnh, số) là gì?
 
-(trả lời ở đây)
+Theo quy tắc đã xác nhận cho MSSV có tiền tố chữ, phần số `202603012 % 26 = 14` chọn `trip-04871`; mapped task `silver_frames[14]` sập với `simulated crash while extracting trip-04871`, tạo 1 task failed, 7 upstream_failed và 29 success. Clear bằng CLI Airflow chính thức chỉ task đỏ làm task này thành công ở lần thử 2, nhưng 7 downstream vẫn upstream_failed; vì vậy phải clear thêm đúng 7 task bị chặn bằng `--downstream --only-failed` trong cùng run. Kết quả là 37/37 task instances success; 25 mapped tasks đã thành công không chạy lại, còn 7 downstream chạy lần đầu sau khi được khôi phục. Silver vẫn có 1.246 dòng và 1.246 frame IDs duy nhất, Gold vẫn 1.019 frame, hash danh sách frame không đổi và version trước/sau đều `cc467d409753`; verify sau recovery đạt 27/27. Bằng chứng: `airflow_failure_log.png`, `airflow_recovered.png` và `report/evidence/airflow_recovery.json` (ghi rõ khác biệt thực tế với mô tả clear một task trong GUIDE).
 
 ### Câu 10
 Nâng từ 2 drive lên **500 xe mỗi ngày**: ba thành phần nào của pipeline này sẽ vỡ đầu tiên, và bạn thay bằng gì (nối với slide 12, 22, 23)?
 
-(trả lời ở đây)
+Đây là dự báo từ kiến trúc đã quan sát, chưa phải kết quả load test 500 xe. Ba giới hạn chính cần xử lý theo hướng tách storage/compute, xử lý phân tán và biến đổi incremental:
+
+| Thành phần | Giới hạn và phương án thay thế |
+|---|---|
+| FFmpeg và worker Airflow cục bộ | Decode/JPEG tốn CPU, mapped extraction đang chạy từng trip một và LocalExecutor chỉ có parallelism 2. Dùng hàng đợi và nhiều worker container theo trip, giới hạn concurrency theo CPU/RAM và mở rộng worker theo backlog để tăng throughput. |
+| DuckDB/dbt trên một file cục bộ | Full-table transforms/join tăng RAM và thời gian giữ file, làm quality gate chậm khi dữ liệu tăng. Chuyển sang compute SQL phân tán hoặc Spark, xử lý incremental theo drive/ngày và giữ cả test partition lẫn test toàn cục. |
+| MinIO cục bộ và export ảnh | Nhiều JPEG nhỏ và thao tác copy từng ảnh tăng số request, I/O và độ trễ xuất dataset. Dùng object storage phân tán, compact metadata thành Parquet, manifest tham chiếu ảnh bất biến và nạp warehouse incremental để giảm copy và tải lại toàn bộ. |
 
 ## Câu hỏi riêng của bạn trên Metabase
 
 Câu SQL bạn thêm vào dashboard và điều nó cho biết:
 
-(trả lời ở đây)
+```sql
+SELECT drive_id, trip_id, frames, frames_kept,
+       ROUND(100.0 * (frames - frames_kept) / NULLIF(frames, 0), 2) AS rejection_pct,
+       avg_speed_kmh, lighting, conditions
+FROM marts.mart_trip_summary
+ORDER BY rejection_pct DESC, trip_id
+LIMIT 10
+```
+
+Câu hỏi `Trips with highest frame rejection rate` đã lưu ở card 46 và thêm vào dashboard 2. `trip-04622` đứng đầu: giữ 26/60 frame, loại 34 frame (56,67%); `trip-04871` giữ 43/60, loại 17 (28,33%). Tỷ lệ tính từ số frame duy nhất bị loại, giúp ưu tiên điều tra trip mất nhiều dữ liệu; truy vấn này chưa xác định nguyên nhân từng frame. Kết quả thật nằm trong `metabase_question.json`, ảnh dashboard và `metabase_overview.png`.
 
 ## Nhìn lại
 
 Điều bạn thấy bất ngờ nhất, điều gì còn chưa rõ, và một lỗi dữ liệu mà bạn nghĩ pipeline **chưa** bắt được (nếu có). Tối đa 8 dòng.
 
-(trả lời ở đây)
+Điều bất ngờ nhất là chia ngẫu nhiên theo frame làm cả 26/26 trip rò rỉ giữa train và test, dù số frame và tỷ lệ split trông hợp lý.
+Còn cần kiểm chứng trường hợp offset đồng hồ thay đổi dần trong một trip; bài này chỉ sửa offset cố định 1.500 ms của B.
+Một lỗi chưa được kiểm tra rõ là GPS nhảy sang vị trí khác nhưng tốc độ vẫn trong miền hợp lệ; cần kiểm tra liên tục không gian và đối chiếu tốc độ/GPS để phát hiện.
