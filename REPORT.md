@@ -21,7 +21,7 @@
 ### Câu 1
 Liệt kê **ít nhất 4 khác biệt** giữa telemetry nguồn A và nguồn B mà bạn thấy ở bronze. Vì sao pipeline giữ **mỗi nguồn một bảng bronze** và để mọi cột ở dạng chữ, thay vì gộp và ép kiểu ngay?
 
-(trả lời ở đây)
+Ở Bronze, A có `ts_utc`, `speed_mps`, `heading_deg`, `lat/lon`, `gas`; B dùng `timestamp_ms`, `spd_kmh`, `hdg`, `latitude/longitude`, `throttle_pct`. Timestamp A là ISO UTC còn B là epoch ms, tốc độ lần lượt là m/s và km/h; dữ liệu nạp có 3.021 dòng A, 3.234 dòng B và 26 trip. Lần nạp thứ hai báo `already present`, còn `raw_telemetry_a` chỉ có Delta version 0 với 3.021 dòng. Giữ hai bảng riêng bảo toàn schema và nguồn gốc; giữ giá trị dạng chữ tránh ép kiểu sớm làm sai hoặc loại bỏ dữ liệu bẩn trước khi Silver chuẩn hóa.
 
 ## Bước 2 · Silver telemetry
 
