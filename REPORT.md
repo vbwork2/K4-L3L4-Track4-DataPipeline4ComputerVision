@@ -11,8 +11,8 @@
 
 ## Kết quả cuối
 
-- `dataset_version` của bạn: `<điền>`  (phải khớp `report/evidence/run_summary.json`)
-- Số khung hình train / val / test của bạn: `<điền>`
+- `dataset_version` của bạn: `cc467d409753`  (phải khớp `report/evidence/run_summary.json`)
+- Số khung hình train / val / test của bạn: `684 / 177 / 158`
 - `report/verify.txt`: tạo bằng `python3 scripts/check_submission.py --save-verify` (phải có `27/27 checks passed`).
 - Ảnh chụp trong `report/screenshots/`: `airflow_graph.png`, `minio_lake.png`, `metabase_dashboard.png`, và ảnh bài tập sập/chạy lại (log task đỏ thấy trip của bạn).
 
@@ -65,17 +65,17 @@ Khung đen có độ sáng dưới ngưỡng và gần như không có thông ti
 ### Câu 6
 Dựa vào `leakage.json`: chia theo khung hình làm bao nhiêu trip bị chia cắt, so với chia theo trip? Vì sao điều này làm điểm kiểm thử đẹp một cách giả tạo?
 
-(trả lời ở đây)
+Trên 1.019 frame sạch thuộc 26 trip, chia ngẫu nhiên theo frame làm cả 26 trip xuất hiện ở nhiều split và cả 26 cùng nằm ở train lẫn test; chia theo trip làm 0 trip bị cắt. Các frame liền nhau trong cùng cảnh gần như giống nhau, nên mô hình có thể học được chính bối cảnh kiểm thử khi thấy frame khác của trip ở train. Vì vậy đánh giá theo frame làm kết quả có vẻ tốt hơn khả năng tổng quát hóa sang chuyến xe chưa thấy.
 
 ### Câu 7
 Vì sao `dataset_version` là **băm nội dung** chứ không phải ngày giờ hay số đếm? Hai lần chạy liên tiếp cho kết quả gì? Vì sao `dataset_version` của bạn **khác** bạn bè dù cùng dữ liệu (liên hệ MSSV)?
 
-(trả lời ở đây)
+Pipeline băm SHA-256 danh sách `frame_id|split` đã sắp xếp rồi lấy 12 ký tự đầu, nên version nhận diện nội dung và cách chia cụ thể, không đổi chỉ vì thời điểm chạy hay trùng số lượng. Bước Gold và lần `export-dataset` lặp đều cho `cc467d409753`, 1.019 frame với train/val/test lần lượt 684/177/158. MSSV tham gia phép xếp hạng `md5(trip_id || MSSV)` để gán split cho từng trip; MSSV khác có thể đổi membership và vì vậy đổi version.
 
 ### Câu 8
 Đọc phần `lineage` trong `manifest.json` của dataset bạn. Trả lời "dataset này được tạo từ dữ liệu nào?" bằng chính nội dung đó. Nếu một người hỏi 3 tháng sau, thông tin nào giúp tái tạo lại đúng dataset này?
 
-(trả lời ở đây)
+Manifest `cc467d409753` ghi 1.019 frame (A: 436, B: 583), chia 684/177/158 trên 18/4/4 trip. Lineage ghi Bronze telemetry A/B và trips ở version 0, `bronze.video_files` version 1; Silver frames version 27, telemetry, flagged frames và frame-telemetry version 0. Hash video đầu vào là A `636ba1a98dfc5ba665d1c935e1d2064e69f4df360ff9ffbd15795957d5e7e9aa`, B `bfa62703f645ff77a8578ae3fc74a00881140d38a404d43c8e2af265bbee9fdc`; `manifest_sha256` là `531337fa2faf9eaedd55d52d77b13c06414b5679786d07a11e9348c5563986c6`. Các hash, phiên bản Delta, quy tắc loại frame và chia trip theo drive cùng MSSV/cấu hình giúp truy lại đúng dữ liệu và split.
 
 ## Bước 5 · Điều phối và phục vụ
 
