@@ -4,10 +4,10 @@
 
 | | |
 |---|---|
-| Họ và tên | `<điền>` |
-| MSSV (đúng bằng `LAB_STUDENT_ID` trong `.env`) | `<điền>` |
-| GitHub | `<điền: tên tài khoản>` |
-| Trip dùng cho bài tập sập và chạy lại (xem GUIDE, bước 5) | `<điền: trip-xxxxx>` |
+| Họ và tên | `Bùi Quang Vinh` |
+| MSSV (đúng bằng `LAB_STUDENT_ID` trong `.env`) | `2A202603012` |
+| GitHub | `vbwork2` |
+| Trip dùng cho bài tập sập và chạy lại (xem GUIDE, bước 5) | `trip-04871` |
 
 ## Kết quả cuối
 
