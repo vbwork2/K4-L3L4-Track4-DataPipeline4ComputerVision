@@ -28,12 +28,19 @@ Liệt kê **ít nhất 4 khác biệt** giữa telemetry nguồn A và nguồn 
 ### Câu 2
 Pipeline đưa hai nguồn về một schema như thế nào (đơn vị, kiểu thời gian, **độ lệch đồng hồ**)? Bằng chứng nào trong kết quả bước 2 cho thấy đã đúng? Dán bảng quarantine của bạn (số dòng theo từng lý do, từng drive) và giải thích vì sao dòng lỗi vào `rejects` thay vì bị xoá.
 
-(trả lời ở đây)
+Staging giữ A ở m/s và đổi timestamp ISO UTC sang kiểu thời gian chuẩn; B đổi `spd_kmh` sang m/s bằng cách chia 3,6, đổi epoch ms sang timestamp và trừ offset đồng hồ 1.500 ms. Bắt đầu telemetry B sau chuẩn hóa là 14:30:00.009 UTC, cách mốc video 14:30:00 đúng 9 ms. Số dòng sạch và quarantine khớp tổng nhận vào ở cả hai nguồn:
+
+| Drive | Trùng | Thiếu tốc độ | Tốc độ ngoài miền | Dòng sạch |
+|---|---:|---:|---:|---:|
+| A | 20 | 30 | 3 | 2.968 |
+| B | 20 | 30 | 3 | 3.181 |
+
+106 dòng lỗi được giữ trong `silver_telemetry_rejects` cùng lý do để kiểm toán, sửa nguồn và theo dõi chất lượng; xóa im lặng sẽ làm mất dấu nguyên nhân và khiến đối soát 3.021/3.234 dòng không còn đầy đủ.
 
 ### Câu 3
 Vì sao test `max_gap_ms` là `warn` còn `in_range` là `error`? Kết quả thí nghiệm `break-gate` của bạn (`break_gate.json`): test nào bắt được, bao nhiêu dòng, và điều đó cho biết gì về vai trò của "cổng chất lượng"?
 
-(trả lời ở đây)
+`max_gap_ms` cảnh báo khi khoảng cách mẫu vượt 1.000 ms vì mất tín hiệu cần được theo dõi nhưng không phải lúc nào cũng làm cả chuyến vô dụng; `in_range` mặc định là `error` với miền tốc độ 0–70 m/s vì giá trị ngoài miền làm dữ liệu downstream sai. Trong `break_gate.json`, khi nới luật lên 1.000 m/s, test `in_range_silver_telemetry_speed_mps__70__0` bắt 6 dòng và dbt trả `PASS=5 WARN=1 ERROR=1`; khôi phục luật gốc cho `PASS=6 WARN=1 ERROR=0`. Thí nghiệm xác nhận cổng `error` dừng dữ liệu không hợp lệ trước Gold, còn `warn` vẫn báo rủi ro cảm biến mà không chặn toàn pipeline.
 
 ## Bước 3 · Silver frames
 
