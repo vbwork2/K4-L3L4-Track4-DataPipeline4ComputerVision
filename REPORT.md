@@ -47,18 +47,18 @@ Vì sao test `max_gap_ms` là `warn` còn `in_range` là `error`? Kết quả th
 ### Câu 4
 Dựa vào `idempotency.json`: số dòng trước và sau hai lần chạy lại, và khi ghi kiểu `append`. Vì sao Delta `overwrite` theo partition (một trip) an toàn hơn xoá rồi ghi lại, nhất là khi giữa chừng có lỗi?
 
-(trả lời ở đây)
+Thí nghiệm trên `trip-00003` ghi nhận 1.246 dòng trước và sau hai lần chạy lại; fingerprint vẫn là `6c7480dfde7e`. Cách `append` sai tạo 120 dòng cho trip có 60 frame, tức nhân đôi đúng 2 lần. Delta `overwrite` có predicate theo trip thay thế đúng partition trong một transaction, nên khi lỗi trước commit dữ liệu cũ vẫn còn và lần chạy lại không cộng thêm dòng; xóa thủ công trước khi ghi có thể để partition trống nếu tiến trình ngắt giữa chừng.
 
 ### Câu 5
 Khung hình **đen** và khung hình **tối** khác nhau thế nào, pipeline xử lý khác nhau ra sao, bạn có đồng ý không? Dựa vào `threshold.json`: nếu chọn ngưỡng 0, 2, 6 thì bao nhiêu khung bị coi là trùng ở mỗi drive? Bạn chọn ngưỡng nào, vì sao, và ngưỡng đó phụ thuộc vào tốc độ xe thế nào?
 
 | dHash khác tối đa | số khung trùng, drive A | số khung trùng, drive B |
 |---|---|---|
-| 0 | | |
-| 2 | | |
-| 6 | | |
+| 0 | 61 | 8 |
+| 2 | 149 | 53 |
+| 6 | 363 | 244 |
 
-(trả lời ở đây)
+Khung đen có độ sáng dưới ngưỡng và gần như không có thông tin nên bị loại khỏi Gold; khung tối vẫn có nội dung, được gắn cờ nhưng giữ lại (A có 4, B có 61), phù hợp với cảnh thiếu sáng hữu ích. Mình chọn ngưỡng 2 đang dùng: nó bắt 149/602 frame ở A và 53/644 ở B, trong khi ngưỡng 6 tăng lên 363 và 244, dễ loại mất góc nhìn khác biệt. Tốc độ cao làm cảnh thay đổi nhiều hơn giữa hai frame cách 0,5 giây, nên ngưỡng quá rộng dễ gộp nhầm ảnh khác; ở tốc độ thấp, ngưỡng 2 đủ nhận ra các ảnh gần như lặp.
 
 ## Bước 4 · Gold
 
