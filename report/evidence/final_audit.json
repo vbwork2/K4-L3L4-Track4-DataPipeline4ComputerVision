@@ -1,0 +1,27 @@
+{
+  "student_id": "2A202603012",
+  "verified_at": "2026-10-12T17:17:28.275145+00:00",
+  "verify_checks_passed": 27,
+  "verify_checks_total": 27,
+  "unit_tests_passed": 9,
+  "report_headings_preserved": true,
+  "report_questions_preserved": true,
+  "protected_sha256": {
+    "tests/test_units.py": "58c63d6ae56c41b79079d00824df02de2936f32b50c2b6b7e2578e9fba6d0990",
+    "pipeline/verify.py": "0b4f0c0215c378a7c95d281c8297b8152ccef506775824d633174f33e5765c17",
+    "docker-compose.yml": "3009d041507fda8059a26a3a10e3281f48cbd53fb3205dd2f60f56b5cb27bf81"
+  },
+  "screenshots": [
+    "airflow_failure.png",
+    "airflow_failure_log.png",
+    "airflow_graph.png",
+    "airflow_recovered.png",
+    "metabase_dashboard.png",
+    "metabase_overview.png",
+    "minio_lake.png"
+  ],
+  "repository_public": true,
+  "final_reset_performed": false,
+  "final_reset_note": "User requested retaining existing recovered data; final checks are read-only.",
+  "save_verify_method": "Original check_submission.py --save-verify via Windows Git Bash subprocess adapter."
+}

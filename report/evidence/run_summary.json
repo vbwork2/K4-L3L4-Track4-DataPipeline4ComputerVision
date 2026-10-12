@@ -1,6 +1,6 @@
 {
   "student_id": "2A202603012",
-  "finished_at": "2026-10-12T10:06:18.298537+00:00",
+  "finished_at": "2026-10-12T17:16:41.866563+00:00",
   "verify_all_passed": true,
   "dataset_version": "cc467d409753",
   "frames": 1019,
@@ -11,16 +11,16 @@
   },
   "trips_by_split": {
     "train": 18,
-    "test": 4,
-    "val": 4
+    "val": 4,
+    "test": 4
   },
   "quarantine": {
-    "drive_a:speed_missing": 30,
-    "drive_b:speed_missing": 30,
     "drive_a:duplicate": 20,
     "drive_b:duplicate": 20,
     "drive_b:speed_out_of_range": 3,
-    "drive_a:speed_out_of_range": 3
+    "drive_a:speed_out_of_range": 3,
+    "drive_a:speed_missing": 30,
+    "drive_b:speed_missing": 30
   },
   "frame_funnel": [
     {

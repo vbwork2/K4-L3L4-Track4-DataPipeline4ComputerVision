@@ -75,7 +75,7 @@ Pipeline băm SHA-256 danh sách `frame_id|split` đã sắp xếp rồi lấy 1
 ### Câu 8
 Đọc phần `lineage` trong `manifest.json` của dataset bạn. Trả lời "dataset này được tạo từ dữ liệu nào?" bằng chính nội dung đó. Nếu một người hỏi 3 tháng sau, thông tin nào giúp tái tạo lại đúng dataset này?
 
-Manifest `cc467d409753` ghi 1.019 frame (A: 436, B: 583), chia 684/177/158 trên 18/4/4 trip. Lineage ghi Bronze telemetry A/B và trips ở version 0, `bronze.video_files` version 1; Silver frames version 27, telemetry, flagged frames và frame-telemetry version 0. Hash video đầu vào là A `636ba1a98dfc5ba665d1c935e1d2064e69f4df360ff9ffbd15795957d5e7e9aa`, B `bfa62703f645ff77a8578ae3fc74a00881140d38a404d43c8e2af265bbee9fdc`; `manifest_sha256` là `531337fa2faf9eaedd55d52d77b13c06414b5679786d07a11e9348c5563986c6`. Các hash, phiên bản Delta, quy tắc loại frame và chia trip theo drive cùng MSSV/cấu hình giúp truy lại đúng dữ liệu và split.
+Manifest `cc467d409753` ghi 1.019 frame (A: 436, B: 583), chia 684/177/158 trên 18/4/4 trip. Lineage ghi Bronze telemetry A/B và trips ở version 0, `bronze.video_files` version 1; Silver frames version 25, telemetry, flagged frames và frame-telemetry version 0. Hash video đầu vào là A `636ba1a98dfc5ba665d1c935e1d2064e69f4df360ff9ffbd15795957d5e7e9aa`, B `bfa62703f645ff77a8578ae3fc74a00881140d38a404d43c8e2af265bbee9fdc`; `manifest_sha256` là `531337fa2faf9eaedd55d52d77b13c06414b5679786d07a11e9348c5563986c6`. Các hash, phiên bản Delta, quy tắc loại frame và chia trip theo drive cùng MSSV/cấu hình giúp truy lại đúng dữ liệu và split.
 
 ## Bước 5 · Điều phối và phục vụ
 
